@@ -13,6 +13,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      - name: Set up sdkman and Gradle
+        run: |
+          curl -s "https://get.sdkman.io" | bash
+          source "$HOME/.sdkman/bin/sdkman-init.sh"
+          sdk version
+          sdk install gradle 8.1.1
+
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -20,6 +32,9 @@ jobs:
 
       - name: Fetch packages
         run: flutter pub get
+
+      - name: Run tests
+        run: flutter test
 
       - name: Build APK
         run: flutter build apk --flavor production --target lib/main_production.dart
