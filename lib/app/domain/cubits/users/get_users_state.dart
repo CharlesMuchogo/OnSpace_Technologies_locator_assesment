@@ -26,7 +26,7 @@ class LoadedUsersState extends GetUsersState with EquatableMixin {
 }
 
 class ErrorGettingUsersState extends GetUsersState {
-  const ErrorGettingUsersState(this.error);
+  const ErrorGettingUsersState({required this.error});
   final String error;
   @override
   List<Object?> get props => [error];

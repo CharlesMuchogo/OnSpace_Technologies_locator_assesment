@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:locator/app/domain/models/user/user.dart';
+import 'package:locator/app/view/components/icon_button.dart';
 
 class IdView extends StatelessWidget {
   const IdView({required this.user, super.key});
@@ -20,12 +21,13 @@ class IdView extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+
           const Icon(Icons.info_outline),
           Container(
             padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-            decoration: const BoxDecoration(
-              color: Colors.lightGreen,
-              borderRadius: BorderRadius.vertical(
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(15),
                 bottom: Radius.circular(15),
               ),

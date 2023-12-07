@@ -5,6 +5,9 @@ import 'package:http/http.dart' as http;
 import 'package:locator/app/data/repository.dart';
 
 class MockRepositoryImpl implements Repository {
+  MockRepositoryImpl({this.testFailure = false});
+  final bool testFailure;
+
   List<Map<String, dynamic>> users = [
     {
       'id': 121212,
@@ -57,16 +60,29 @@ class MockRepositoryImpl implements Repository {
     }
   ];
 
+  Map<String, String> errorResponse = {'message':'error'};
+
   @override
   Future<http.Response> getUserUpdates({required int id}) async {
-    final response =
-        await Future<void>.delayed(const Duration(seconds: 3)).then(
-      (value) => http.Response(
-        jsonEncode(updates),
-        200,
-        headers: {'content-type': 'application/json'},
-      ),
-    );
+    late http.Response response;
+
+    if(testFailure){
+      response = await Future<void>.delayed(const Duration(seconds: 3)).then(
+            (value) => http.Response(
+          jsonEncode(errorResponse),
+          500,
+          headers: {'content-type': 'application/json'},
+        ),
+      );
+    }else{
+      response = await Future<void>.delayed(const Duration(seconds: 3)).then(
+            (value) => http.Response(
+          jsonEncode(updates),
+          200,
+          headers: {'content-type': 'application/json'},
+        ),
+      );
+    }
     return response;
   }
 

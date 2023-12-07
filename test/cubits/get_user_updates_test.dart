@@ -9,7 +9,7 @@ void main() {
   late MockRepositoryImpl mockRepositoryImpl;
   late List<Location> fakeUpdates;
   setUp(() {
-    mockRepositoryImpl = MockRepositoryImpl();
+    mockRepositoryImpl = MockRepositoryImpl(testFailure: false);
     updatesCubit = GetUpdatesCubit(repository: mockRepositoryImpl);
     fakeUpdates = mockRepositoryImpl.updates
         .map(

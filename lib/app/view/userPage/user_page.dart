@@ -5,11 +5,10 @@ import 'package:locator/app/data/repository.dart';
 import 'package:locator/app/data/repository_impl.dart';
 import 'package:locator/app/domain/cubits/updates/get_updates_cubit.dart';
 import 'package:locator/app/domain/models/user/user.dart';
-import 'package:locator/app/utils/Utils.dart';
+import 'package:locator/app/view/components/icon_button.dart';
 import 'package:locator/app/view/userPage/current_location_view.dart';
+import 'package:locator/app/view/userPage/id_view.dart';
 import 'package:locator/app/view/userPage/updates_view.dart';
-
-import 'id_view.dart';
 
 class UserPage extends StatelessWidget {
   UserPage({required this.user, super.key});
@@ -22,6 +21,7 @@ class UserPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Colors.grey.shade100,
         title: Text(
           user.name,
@@ -29,51 +29,70 @@ class UserPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.send_sharp),
-            onPressed: () {},
+        actions: const [
+
+           CircleAvatarWithIcon(
+            icon:Icons.send_rounded,
+            backgroundColor: Colors.black,
+            iconColor: Colors.white,
+            radius: 18,
+             rotateIcon: true,
           ),
         ],
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+        leading:
+
+        CircleAvatarWithIcon(
+          icon: Icons.arrow_back_ios,
+          backgroundColor: Colors.white,
           onPressed: () => Navigator.pop(context),
+          iconColor: Colors.black,
+          radius: 15,
         ),
       ),
       body: Container(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(
-              width: 180,
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: CachedNetworkImage(
-                  imageUrl: user.imageLink,
-                  imageBuilder: (context, imageProvider) => CircleAvatar(
-                    radius: 180,
-                    backgroundImage: imageProvider,
-                  ),
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  ),
-                  errorWidget: (context, url, error) => const Center(
-                    child: Icon(
-                      Icons.image,
-                      size: 100,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: 180,
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: CachedNetworkImage(
+                    imageUrl: user.imageLink,
+                    imageBuilder: (context, imageProvider) => CircleAvatar(
+                      radius: 180,
+                      backgroundImage: imageProvider,
+                    ),
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    ),
+                    errorWidget: (context, url, error) => const Center(
+                      child: Icon(
+                        Icons.image,
+                        size: 100,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            IdView(user: user),
-            CurrentLocationView(user: user),
-            UpdatesView(),
-          ],
+              columnSpacer(),
+              IdView(user: user),
+              columnSpacer(),
+              CurrentLocationView(user: user),
+              columnSpacer(),
+              UpdatesView(),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Widget columnSpacer ({double height = 15}){
+    return SizedBox(height: height,);
+
   }
 }

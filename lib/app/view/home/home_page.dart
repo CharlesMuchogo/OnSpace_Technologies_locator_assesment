@@ -4,9 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:locator/app/domain/cubits/users/get_users_cubit.dart';
 import 'package:locator/app/domain/models/user/user.dart';
+import 'package:locator/app/utils/locator_custom_cliper.dart';
+import 'package:locator/app/view/components/add_icon.dart';
+import 'package:locator/app/view/components/icon_button.dart';
 import 'package:locator/app/view/userPage/user_page.dart';
-
-
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -35,7 +36,6 @@ class HomePage extends StatelessWidget {
           if (state is LoadedUsersState) {
             users = state.data;
             markers = users.map((e) {
-              // final Uint8List? imageBytes  = getImageBytes(e.imageLink);
               return Marker(
                 // icon: BitmapDescriptor.fromBytes(),
                 markerId: MarkerId(e.name),
@@ -71,65 +71,129 @@ class HomePage extends StatelessWidget {
                   bottom: 0,
                   left: 8,
                   right: 8,
-                  child: Container(
-                    height: size.height * 0.3,
-                    width: size.width,
-                    decoration:  BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(20),
-                        bottom: Radius.circular(20),
-                      ),
-                    ),
-                    padding: const EdgeInsets.all(10),
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: users.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    UserPage(user: users[index]),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AddIcon(
+                                label: 'Add new tag',
                               ),
-                            );
-                          },
-                          leading: SizedBox(
-                            width: 50,
-                            child: AspectRatio(
-                              aspectRatio: 1,
-                              child: CachedNetworkImage(
-                                imageUrl: users[index].imageLink,
-                                imageBuilder: (context, imageProvider) =>
-                                    CircleAvatar(
-                                  radius: 30,
-                                  backgroundImage: imageProvider,
+                              AddIcon(
+                                label: 'Add new item',
+                              ),
+                            ],
+                          ),
+                          ClipPath(
+                            clipper: LocatorCustomCliper(),
+                            child: Container(
+                              height: size.height * 0.35,
+                              width: size.width,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(15),
+                                  bottom: Radius.circular(15),
                                 ),
-                                placeholder: (context, url) => const Center(
-                                  child: CircularProgressIndicator.adaptive(),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    const Center(
-                                  child: Icon(
-                                    Icons.image,
-                                    size: 30,
+                              ),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 15),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        FilterChip(
+                                            selected: true,
+                                            selectedColor: Colors.lime.shade600,
+                                            label: const Text('All'),
+                                            onSelected: null),
+                                        FilterChip(
+                                          selected: true,
+                                          selectedColor: Colors.lime.shade600,
+                                          label: const Text('people'),
+                                          onSelected: null,
+                                        ),
+                                        FilterChip(
+                                            selected: true,
+                                            selectedColor: Colors.lime.shade600,
+                                            label: const Text('items'),
+                                            onSelected: null),
+                                      ],
+                                    ),
                                   ),
-                                ),
+                                  ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemCount: users.length,
+                                    itemBuilder: (context, index) {
+                                      return ListTile(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  UserPage(user: users[index]),
+                                            ),
+                                          );
+                                        },
+                                        leading: SizedBox(
+                                          width: 50,
+                                          child: AspectRatio(
+                                            aspectRatio: 1,
+                                            child: CachedNetworkImage(
+                                              imageUrl: users[index].imageLink,
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      CircleAvatar(
+                                                radius: 30,
+                                                backgroundImage: imageProvider,
+                                              ),
+                                              placeholder: (context, url) =>
+                                                  const Center(
+                                                child: CircularProgressIndicator
+                                                    .adaptive(),
+                                              ),
+                                              errorWidget: (context, url, error) =>
+                                                  const Center(
+                                                child: Icon(
+                                                  Icons.image,
+                                                  size: 30,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        title: Text(
+                                          users[index].name,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                        subtitle:
+                                            Text(users[index].location.placeName),
+                                        trailing: const CircleAvatarWithIcon(
+                                          icon: Icons.send_rounded,
+                                          backgroundColor: Colors.black,
+                                          iconColor: Colors.white,
+                                          rotateIcon: true,
+                                          radius: 18,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                          title: Text(
-                            users[index].name,
-                            style:
-                                Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                          ),
-                          subtitle: Text(users[index].location.placeName),
-                          trailing: const Icon(Icons.send_sharp),
-                        );
-                      },
+                        ],
+                      ),
                     ),
                   ),
                 ),

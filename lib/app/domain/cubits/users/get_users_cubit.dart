@@ -29,11 +29,11 @@ class GetUsersCubit extends Cubit<GetUsersState> {
         emit(LoadedUsersState(data: users));
       } else {
         final dynamic errorData = jsonDecode(response.body);
-        emit(ErrorGettingUsersState(errorData['message'].toString()));
+        emit(ErrorGettingUsersState(error: errorData['message'].toString()));
       }
     } catch (e) {
       log('error is -> $e');
-      emit(ErrorGettingUsersState(e.toString()));
+      emit(ErrorGettingUsersState(error:e.toString()));
     }
   }
 }
