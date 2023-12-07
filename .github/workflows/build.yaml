@@ -36,5 +36,10 @@ jobs:
       - name: Run tests
         run: flutter test
 
+      - name: Generate and copy signing key
+        run: |
+          keytool -genkey -v -keystore keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -storepass onspace -keypass onspace -dname "CN=Your Name, OU=Your Organizational Unit, O=Your Organization, L=Your City, ST=Your State, C=Your Country"
+          cp keystore.jks android/app/
+
       - name: Build APK
         run: flutter build apk --flavor production --target lib/main_production.dart
