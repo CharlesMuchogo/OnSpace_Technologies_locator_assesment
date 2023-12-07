@@ -32,7 +32,8 @@ class UserPage extends StatelessWidget {
         actions: const [
 
            CircleAvatarWithIcon(
-            icon:Icons.send_rounded,
+             paddingValues: 10,
+             icon:Icons.send_rounded,
             backgroundColor: Colors.black,
             iconColor: Colors.white,
             radius: 18,
@@ -43,6 +44,7 @@ class UserPage extends StatelessWidget {
         leading:
 
         CircleAvatarWithIcon(
+          paddingValues: 10,
           icon: Icons.arrow_back_ios,
           backgroundColor: Colors.white,
           onPressed: () => Navigator.pop(context),

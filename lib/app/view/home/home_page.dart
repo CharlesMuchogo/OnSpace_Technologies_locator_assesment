@@ -58,6 +58,7 @@ class HomePage extends StatelessWidget {
             width: size.width,
             child: Stack(
               children: [
+
                 GoogleMap(
                   initialCameraPosition: const CameraPosition(
                     target: LatLng(-1.2655367, 36.8104826),
@@ -66,6 +67,28 @@ class HomePage extends StatelessWidget {
                   markers: Set<Marker>.of(markers),
                   myLocationEnabled: true,
                   onMapCreated: (GoogleMapController controller) {},
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CircleAvatarWithIcon(
+                        paddingValues: 10,
+                        icon: Icons.search,
+                        backgroundColor: Colors.white,
+                        iconColor: Colors.black,
+                        radius: 30,
+                      ),
+                      CircleAvatarWithIcon(
+                        paddingValues: 10,
+                        icon: Icons.settings,
+                        backgroundColor: Colors.white,
+                        iconColor: Colors.black,
+                        radius: 30,
+                      ),
+                    ],
+                  ),
                 ),
                 Positioned(
                   bottom: 0,
