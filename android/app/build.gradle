@@ -67,7 +67,7 @@ android {
     signingConfigs {
             release {
                 storeFile file("keystore.jks")
-                keyAlias "key_alias"
+                keyAlias "onspace"
                 keyPassword "onspace"
                 storePassword "onspace"
             }

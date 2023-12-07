@@ -38,7 +38,7 @@ jobs:
 
       - name: Generate and copy signing key
         run: |
-          keytool -genkey -v -keystore keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -storepass onspace -keypass onspace -dname "CN=Your Name, OU=Your Organizational Unit, O=Your Organization, L=Your City, ST=Your State, C=Your Country"
+          keytool -genkey -v -keystore keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -storepass onspace -keypass onspace -dname "CN=Charles, OU=Development, O=onSpace, L=Nairobi, ST=Nairobi, C=Kenya" -alias onspace
           cp keystore.jks android/app/
 
       - name: Build APK
