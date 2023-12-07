@@ -4,7 +4,7 @@ part 'location.g.dart';
 
 @JsonSerializable()
 class Location extends Equatable {
-  Location({
+  const Location({
     required this.latitude,
     required this.longitude,
     required this.lastUpdate,

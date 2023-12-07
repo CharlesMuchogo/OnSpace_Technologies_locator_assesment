@@ -15,11 +15,14 @@ class UserPage extends StatelessWidget {
 
   final User user;
   final Repository repository = RepositoryImpl();
+
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     BlocProvider.of<GetUpdatesCubit>(context).getUserUpdates(id: user.id);
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
+
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.grey.shade100,
@@ -30,20 +33,17 @@ class UserPage extends StatelessWidget {
               ),
         ),
         actions: const [
-
-           CircleAvatarWithIcon(
-             paddingValues: 10,
-             icon:Icons.send_rounded,
+          CircleAvatarWithIcon(
+            paddingValues: 10,
+            icon: Icons.send_rounded,
             backgroundColor: Colors.black,
             iconColor: Colors.white,
             radius: 18,
-             rotateIcon: true,
+            rotateIcon: true,
           ),
         ],
         centerTitle: true,
-        leading:
-
-        CircleAvatarWithIcon(
+        leading: CircleAvatarWithIcon(
           paddingValues: 10,
           icon: Icons.arrow_back_ios,
           backgroundColor: Colors.white,
@@ -53,39 +53,93 @@ class UserPage extends StatelessWidget {
         ),
       ),
       body: Container(
+        height: screenSize.height,
+        width: screenSize.width,
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Stack(
             children: [
-              SizedBox(
-                width: 180,
-                child: AspectRatio(
-                  aspectRatio: 1,
-                  child: CachedNetworkImage(
-                    imageUrl: user.imageLink,
-                    imageBuilder: (context, imageProvider) => CircleAvatar(
-                      radius: 180,
-                      backgroundImage: imageProvider,
-                    ),
-                    placeholder: (context, url) => const Center(
-                      child: CircularProgressIndicator.adaptive(),
-                    ),
-                    errorWidget: (context, url, error) => const Center(
-                      child: Icon(
-                        Icons.image,
-                        size: 100,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: 180,
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: CachedNetworkImage(
+                        imageUrl: user.imageLink,
+                        imageBuilder: (context, imageProvider) => CircleAvatar(
+                          radius: 180,
+                          backgroundImage: imageProvider,
+                        ),
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator.adaptive(),
+                        ),
+                        errorWidget: (context, url, error) => const Center(
+                          child: Icon(
+                            Icons.image,
+                            size: 100,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
+                  columnSpacer(),
+                  IdView(user: user),
+                  columnSpacer(),
+                  CurrentLocationView(user: user),
+                  columnSpacer(),
+                  UpdatesView(),
+                ],
               ),
-              columnSpacer(),
-              IdView(user: user),
-              columnSpacer(),
-              CurrentLocationView(user: user),
-              columnSpacer(),
-              UpdatesView(),
+
+              Positioned(
+                bottom: 10,
+                left: 10,
+                right: 10,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const CircleAvatarWithIcon(
+                        paddingValues: 10,
+                        icon: Icons.call_outlined,
+                        backgroundColor: Colors.black,
+                        iconColor: Colors.white,
+                        radius: 25,
+                      ),
+                      Container(
+                        width: 200,
+                        height: 50,
+                        decoration: const BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(30),
+                            bottom: Radius.circular(30),
+                          ),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'Follow',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,),
+                          ),
+                        ),
+                      ),
+                      const CircleAvatarWithIcon(
+                        paddingValues: 10,
+                        icon: Icons.battery_5_bar_outlined,
+                        backgroundColor: Colors.black,
+                        iconColor: Colors.white,
+                        radius: 25,
+                      ),
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
         ),
@@ -93,8 +147,9 @@ class UserPage extends StatelessWidget {
     );
   }
 
-  Widget columnSpacer ({double height = 15}){
-    return SizedBox(height: height,);
-
+  Widget columnSpacer({double height = 15}) {
+    return SizedBox(
+      height: height,
+    );
   }
 }

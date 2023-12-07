@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:locator/app/domain/cubits/users/get_users_cubit.dart';
 import 'package:locator/app/domain/models/user/user.dart';
+import 'package:locator/app/utils/bottom_bar_clipper.dart';
 import 'package:locator/app/utils/locator_custom_cliper.dart';
 import 'package:locator/app/view/components/add_icon.dart';
 import 'package:locator/app/view/components/icon_button.dart';
@@ -21,6 +22,26 @@ class HomePage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
+      bottomNavigationBar: ClipPath(
+        clipper: BottomNavBarClipper(), // Custom clipper for notched shape
+        child: BottomNavigationBar(
+          onTap: (int index) {},
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: 'Search',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+          ],
+        ),
+      ),
       body: BlocBuilder<GetUsersCubit, GetUsersState>(
         builder: (context, state) {
           if (state is LoadingUsersState) {
@@ -58,7 +79,6 @@ class HomePage extends StatelessWidget {
             width: size.width,
             child: Stack(
               children: [
-
                 GoogleMap(
                   initialCameraPosition: const CameraPosition(
                     target: LatLng(-1.2655367, 36.8104826),
@@ -151,7 +171,8 @@ class HomePage extends StatelessWidget {
                                   ),
                                   ListView.builder(
                                     shrinkWrap: true,
-                                    physics: const NeverScrollableScrollPhysics(),
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
                                     itemCount: users.length,
                                     itemBuilder: (context, index) {
                                       return ListTile(
@@ -180,8 +201,9 @@ class HomePage extends StatelessWidget {
                                                 child: CircularProgressIndicator
                                                     .adaptive(),
                                               ),
-                                              errorWidget: (context, url, error) =>
-                                                  const Center(
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      const Center(
                                                 child: Icon(
                                                   Icons.image,
                                                   size: 30,
@@ -199,8 +221,8 @@ class HomePage extends StatelessWidget {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                         ),
-                                        subtitle:
-                                            Text(users[index].location.placeName),
+                                        subtitle: Text(
+                                            users[index].location.placeName),
                                         trailing: const CircleAvatarWithIcon(
                                           icon: Icons.send_rounded,
                                           backgroundColor: Colors.black,
