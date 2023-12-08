@@ -13,9 +13,9 @@ A Very Good Project created by Very Good CLI.
 
 ## Screenshots
 I added some screenshots and video in the assets folder, in the root directory of the project and a GIF to show end to end test on the app.
-![demo video](assets/video.mp4)
-![home page](assets/homepage.png)
-![user page](assets/user_page.png)
+<img src="assets/video.mp4" alt="demo video" width="250" />
+<img src="assets/homepage.png" alt="home page" width="250" />
+<img src="assets/user_page.png" alt="user page" width="250" />
 
 ## Endpoints
 I used a custom json data mocked from these endpoints 
