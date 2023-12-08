@@ -1,21 +1,22 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:locator/app/domain/models/user/user.dart';
+import 'package:locator/app/utils/Utils.dart';
 import 'package:locator/app/view/components/icon_button.dart';
 import 'package:locator/app/view/userPage/user_page.dart';
 
 class UserCard extends StatelessWidget {
   const UserCard({required this.user, super.key});
+
   final User user;
 
   @override
   Widget build(BuildContext context) {
-    return  ListTile(
+    return ListTile(
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) =>
-                UserPage(user: user),
+            builder: (context) => UserPage(user: user),
           ),
         );
       },
@@ -25,17 +26,14 @@ class UserCard extends StatelessWidget {
           aspectRatio: 1,
           child: CachedNetworkImage(
             imageUrl: user.imageLink,
-            imageBuilder: (context, imageProvider) =>
-                CircleAvatar(
-                  radius: 30,
-                  backgroundImage: imageProvider,
-                ),
-            placeholder: (context, url) =>
-            const Center(
+            imageBuilder: (context, imageProvider) => CircleAvatar(
+              radius: 30,
+              backgroundImage: imageProvider,
+            ),
+            placeholder: (context, url) => const Center(
               child: CircularProgressIndicator.adaptive(),
             ),
-            errorWidget: (context, url, error) =>
-            const Center(
+            errorWidget: (context, url, error) => const Center(
               child: Icon(
                 Icons.image,
                 size: 30,
@@ -46,20 +44,34 @@ class UserCard extends StatelessWidget {
       ),
       title: Text(
         user.name,
-        style: Theme.of(context)
-            .textTheme
-            .bodyLarge
-            ?.copyWith(
-          fontWeight: FontWeight.bold,
-        ),
+        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
       ),
       subtitle: Text(user.location.placeName),
-      trailing: const CircleAvatarWithIcon(
-        icon: Icons.send_rounded,
-        backgroundColor: Colors.black,
-        iconColor: Colors.white,
-        rotateIcon: true,
-        radius: 18,
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (user.type == 'items')
+            Text(
+              '${minutesDifference(user.location.lastUpdate)} min updated',
+            )
+          else
+            CircleAvatarWithIcon(
+              icon: Icons.battery_2_bar_outlined,
+              backgroundColor: Colors.lime.shade600,
+              iconColor: Colors.black,
+              radius: 18,
+            ),
+          const SizedBox(width: 5),
+          const CircleAvatarWithIcon(
+            icon: Icons.send_rounded,
+            backgroundColor: Colors.black,
+            iconColor: Colors.white,
+            rotateIcon: true,
+            radius: 18,
+          ),
+        ],
       ),
     );
   }

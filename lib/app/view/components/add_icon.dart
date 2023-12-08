@@ -13,11 +13,20 @@ class AddIcon extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        decoration: const BoxDecoration(
+        decoration:  BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 2,
+              blurRadius: 4,
+              offset: const Offset(0, 1),
+            ),
+          ],
           color: Colors.white,
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(25),
-            bottom: Radius.circular(25),
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(30),
+            bottom: Radius.circular(30),
+
           ),
         ),
         child: Padding(
@@ -30,7 +39,7 @@ class AddIcon extends StatelessWidget {
                 iconColor: Colors.black,
                 radius: 18,
               ),
-              const SizedBox(width: 20,),
+              const SizedBox(width: 15,),
               Text(label, style: const TextStyle(fontWeight: FontWeight.bold),)
             ],
           ),

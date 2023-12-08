@@ -49,7 +49,7 @@ class UserPage extends StatelessWidget {
           backgroundColor: Colors.white,
           onPressed: () => Navigator.pop(context),
           iconColor: Colors.black,
-          radius: 15,
+          radius: 18,
         ),
       ),
       body: Container(

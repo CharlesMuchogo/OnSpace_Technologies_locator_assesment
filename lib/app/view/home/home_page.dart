@@ -111,14 +111,26 @@ class _HomePageState extends State<HomePage> {
               children: [
                 MapPage(markers: markers),
                 Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: showSearchBar
-                        ? appBarSearch()
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              CircleAvatarWithIcon(
-                                paddingValues: 10,
+                  padding: const EdgeInsets.only(top: 30),
+                  child: showSearchBar
+                      ? appBarSearch()
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.1),
+                                    spreadRadius: 2,
+                                    blurRadius: 4,
+                                    offset: const Offset(0, 1),
+                                  ),
+                                ],
+                              ),
+                              child: CircleAvatarWithIcon(
                                 icon: Icons.search,
                                 backgroundColor: Colors.white,
                                 iconColor: Colors.black,
@@ -129,15 +141,32 @@ class _HomePageState extends State<HomePage> {
                                 },
                                 radius: 30,
                               ),
-                              const CircleAvatarWithIcon(
-                                paddingValues: 10,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.1),
+                                    spreadRadius: 2,
+                                    blurRadius: 4,
+                                    offset: const Offset(0, 1),
+                                  ),
+                                ],
+                              ),
+                              child: const CircleAvatarWithIcon(
                                 icon: Icons.settings,
                                 backgroundColor: Colors.white,
                                 iconColor: Colors.black,
                                 radius: 30,
                               ),
-                            ],
-                          )),
+                            )
+
+                          ],
+                        ),
+                ),
+
                 Positioned(
                   bottom: 0,
                   left: 8,
@@ -170,6 +199,14 @@ class _HomePageState extends State<HomePage> {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                spreadRadius: 2,
+                blurRadius: 4,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
           child: Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
@@ -199,17 +236,31 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        CircleAvatarWithIcon(
-          paddingValues: 5,
-          icon: Icons.close,
-          backgroundColor: Colors.white,
-          iconColor: Colors.black,
-          onPressed: () {
-            setState(() {
-              showSearchBar = false;
-            });
-          },
-          radius: 30,
+        Container(
+          padding: const EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                spreadRadius: 2,
+                blurRadius: 4,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: CircleAvatarWithIcon(
+            paddingValues: 5,
+            icon: Icons.close,
+            backgroundColor: Colors.white,
+            iconColor: Colors.black,
+            onPressed: () {
+              setState(() {
+                showSearchBar = false;
+              });
+            },
+            radius: 20,
+          ),
         ),
       ],
     );
@@ -220,11 +271,19 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.only(bottom: 10, right: 10, left: 10),
       child: Container(
         height: 70,
-        decoration: const BoxDecoration(
+        decoration:  BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 2,
+              blurRadius: 4,
+              offset: const Offset(0, 1),
+            ),
+          ],
           color: Colors.white,
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(15),
-            bottom: Radius.circular(15),
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(30),
+            bottom: Radius.circular(30),
           ),
         ),
         child: Row(

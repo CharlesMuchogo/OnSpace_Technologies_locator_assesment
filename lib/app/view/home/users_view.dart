@@ -57,6 +57,14 @@ class _UsersViewState extends State<UsersView> {
               height: size.height * 0.35,
               width: size.width,
               decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    spreadRadius: 2,
+                    blurRadius: 4,
+                    offset: const Offset(0, 1),
+                  ),
+                ],
                 color: Theme.of(context).primaryColor,
                 borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(15),
@@ -72,6 +80,7 @@ class _UsersViewState extends State<UsersView> {
                       children: filterItems.map((String filterItem) {
                         return FilterChip(
                           selected: filterUsers == filterItem,
+                          backgroundColor: Colors.lime.shade600,
                           selectedColor: Colors.lime.shade600,
                           label: Text(filterItem),
                           onSelected: (bool selected) {
