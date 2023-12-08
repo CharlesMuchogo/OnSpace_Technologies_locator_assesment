@@ -10,6 +10,9 @@ A Very Good Project created by Very Good CLI.
 
 ---
 
+[![Video](https://raw.githubusercontent.com/CharlesMuchogo/OnSpace_Technologies_locator_assesment/main/assets/video.mp4)](https://raw.githubusercontent.com/CharlesMuchogo/OnSpace_Technologies_locator_assesment/main/assets/video.mp4)
+
+
 ## Getting Started 🚀
 
 This project contains 3 flavors:
