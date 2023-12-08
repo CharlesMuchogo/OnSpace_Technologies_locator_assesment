@@ -10,9 +10,17 @@ A Very Good Project created by Very Good CLI.
 
 ---
 
-[![Video](https://raw.githubusercontent.com/CharlesMuchogo/OnSpace_Technologies_locator_assesment/main/assets/video.mp4)](https://raw.githubusercontent.com/CharlesMuchogo/OnSpace_Technologies_locator_assesment/main/assets/video.mp4)
 
+## Screenshots
+I added some screenshots and video in the assets folder, in the root directory of the project and a GIF to show end to end test on the app.
 
+<img src="assets/video.gif" width="250"/> <img src="assets/homepage.png" width="250"/> <img src="screenshorts/user_page.png" width="250"/>
+
+## Endpoints
+I used a custom json data mocked from these endpoints 
+
+- updates https://656f1b0a6529ec1c62375889.mockapi.io/api/v1/updates
+- users https://656f1b0a6529ec1c62375889.mockapi.io/api/v1/users
 ## Getting Started 🚀
 
 This project contains 3 flavors:
