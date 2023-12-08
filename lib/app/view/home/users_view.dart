@@ -17,13 +17,16 @@ class UsersView extends StatefulWidget {
 class _UsersViewState extends State<UsersView> {
   String filterUsers = 'all';
 
+  List<String> filterItems = ['All','Items', 'People' ];
+
+
   List<User> get filteredUsers {
-    if (filterUsers == 'all') {
+    if (filterUsers.toLowerCase() == 'all') {
       return widget.users;
     } else {
       return widget.users
           .where((element) {
-            return element.type == filterUsers;})
+            return element.type.toLowerCase() == filterUsers.toLowerCase();})
           .toList();
     }
   }
@@ -65,42 +68,21 @@ class _UsersViewState extends State<UsersView> {
                     padding: const EdgeInsets.only(top: 15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        FilterChip(
-                          selected: filterUsers == 'all',
+                      children: filterItems.map((String filterItem) {
+                        return FilterChip(
+                          selected: filterUsers == filterItem,
                           selectedColor: Colors.lime.shade600,
-                          label: const Text('All'),
+                          label: Text(filterItem),
                           onSelected: (bool selected) {
                             setState(() {
-                              filterUsers = 'all';
+                              filterUsers = filterItem;
                               log(filterUsers);
                             });
                           },
-                        ),
-                        FilterChip(
-                          selected: filterUsers == 'people',
-                          selectedColor: Colors.lime.shade600,
-                          label: const Text('People'),
-                          onSelected: (bool selected) {
-                            setState(() {
-                              filterUsers = 'people';
-                              log(filterUsers);
-                            });
-                          },
-                        ),
-                        FilterChip(
-                          selected: filterUsers == 'items',
-                          selectedColor: Colors.lime.shade600,
-                          label: const Text('Items'),
-                          onSelected: (bool selected) {
-                            setState(() {
-                              filterUsers = 'items';
-                              log(filterUsers);
-                            });
-                          },
-                        ),
-                      ],
+                        );
+                      }).toList(),
                     ),
+
                   ),
                   Expanded(
                     child: ListView.builder(
