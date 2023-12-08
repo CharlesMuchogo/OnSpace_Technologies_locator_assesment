@@ -1,13 +1,32 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:locator/app/domain/models/user/user.dart';
 import 'package:locator/app/utils/locator_custom_cliper.dart';
 import 'package:locator/app/view/components/add_icon.dart';
 import 'package:locator/app/view/home/user_card.dart';
+class UsersView extends StatefulWidget {
+  UsersView({required this.users, super.key});
 
-class UsersView extends StatelessWidget {
-  const UsersView({required this.users, super.key});
+  List<User> users;
 
-  final List<User> users;
+  @override
+  State<UsersView> createState() => _UsersViewState();
+}
+
+class _UsersViewState extends State<UsersView> {
+  String filterUsers = 'all';
+
+  List<User> get filteredUsers {
+    if (filterUsers == 'all') {
+      return widget.users;
+    } else {
+      return widget.users
+          .where((element) {
+            return element.type == filterUsers;})
+          .toList();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,32 +67,47 @@ class UsersView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         FilterChip(
-                          selected: true,
+                          selected: filterUsers == 'all',
                           selectedColor: Colors.lime.shade600,
                           label: const Text('All'),
-                          onSelected: null,
+                          onSelected: (bool selected) {
+                            setState(() {
+                              filterUsers = 'all';
+                              log(filterUsers);
+                            });
+                          },
                         ),
                         FilterChip(
-                          selected: true,
+                          selected: filterUsers == 'people',
                           selectedColor: Colors.lime.shade600,
-                          label: const Text('people'),
-                          onSelected: null,
+                          label: const Text('People'),
+                          onSelected: (bool selected) {
+                            setState(() {
+                              filterUsers = 'people';
+                              log(filterUsers);
+                            });
+                          },
                         ),
                         FilterChip(
-                          selected: true,
+                          selected: filterUsers == 'items',
                           selectedColor: Colors.lime.shade600,
-                          label: const Text('items'),
-                          onSelected: null,
+                          label: const Text('Items'),
+                          onSelected: (bool selected) {
+                            setState(() {
+                              filterUsers = 'items';
+                              log(filterUsers);
+                            });
+                          },
                         ),
                       ],
                     ),
                   ),
                   Expanded(
                     child: ListView.builder(
-                      itemCount: users.length,
+                      itemCount: filteredUsers.length,
                       itemBuilder: (context, index) {
                         return UserCard(
-                          user: users[index],
+                          user: filteredUsers[index],
                         );
                       },
                     ),
