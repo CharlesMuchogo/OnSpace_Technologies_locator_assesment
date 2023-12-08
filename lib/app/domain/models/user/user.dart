@@ -12,6 +12,7 @@ class User  extends Equatable {
     required this.name,
     required this.imageLink,
     required this.location,
+    required this.type,
   });
   factory User.fromJson(Map<String, dynamic> json) =>
       _$UserFromJson(json);
@@ -20,10 +21,11 @@ class User  extends Equatable {
   final int id;
   final String name;
   final String imageLink;
+  final String type;
   final Location location;
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
 
   @override
-  List<Object?> get props => [id, name, imageLink, location];
+  List<Object?> get props => [id, name, imageLink, location, type];
 }

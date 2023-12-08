@@ -6,10 +6,10 @@ import 'package:equatable/equatable.dart';
 import 'package:locator/app/data/repository.dart';
 import 'package:locator/app/domain/models/location/location.dart';
 
-part 'get_updates_state.dart';
+part 'updates_state.dart';
 
-class GetUpdatesCubit extends Cubit<GetUserUpdatesState> {
-  GetUpdatesCubit({required this.repository}) : super(InitialUserUpdatesState());
+class UpdatesCubit extends Cubit<UpdatesState> {
+  UpdatesCubit({required this.repository}) : super(InitialUserUpdatesState());
   final Repository repository;
 
   Future<void> getUserUpdates({required int id}) async {

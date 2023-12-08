@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:locator/app/domain/cubits/updates/get_updates_cubit.dart';
+import 'package:locator/app/domain/cubits/updates/updates_cubit.dart';
 import 'package:locator/app/domain/models/location/location.dart';
 import 'package:locator/app/utils/Utils.dart';
 
@@ -31,7 +31,7 @@ class UpdatesView extends StatelessWidget {
               ),
             ),
           ),
-          BlocBuilder<GetUpdatesCubit, GetUserUpdatesState>(
+          BlocBuilder<UpdatesCubit, UpdatesState>(
             builder: (context, state) {
               if (state is LoadingUserUpdatesState) {
                 return const Expanded(

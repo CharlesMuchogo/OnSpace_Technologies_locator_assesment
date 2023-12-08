@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:locator/app/data/mock_repository_impl.dart';
 import 'package:locator/app/data/repository.dart';
 import 'package:locator/app/data/repository_impl.dart';
-import 'package:locator/app/domain/cubits/updates/get_updates_cubit.dart';
-import 'package:locator/app/domain/cubits/users/get_users_cubit.dart';
+import 'package:locator/app/domain/cubits/updates/updates_cubit.dart';
+import 'package:locator/app/domain/cubits/users/users_cubit.dart';
 import 'package:locator/app/view/home/home_page.dart';
 import 'package:locator/l10n/l10n.dart';
 
@@ -18,10 +18,10 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => GetUsersCubit(repository: repository),
+          create: (context) => UsersCubit(repository: repository),
         ),
         BlocProvider(
-          create: (context) => GetUpdatesCubit(repository: repository),
+          create: (context) => UpdatesCubit(repository: repository),
         ),
       ],
 

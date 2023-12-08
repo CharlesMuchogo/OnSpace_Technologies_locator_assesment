@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:locator/app/data/repository.dart';
 import 'package:locator/app/data/repository_impl.dart';
-import 'package:locator/app/domain/cubits/updates/get_updates_cubit.dart';
+import 'package:locator/app/domain/cubits/updates/updates_cubit.dart';
 import 'package:locator/app/domain/models/user/user.dart';
 import 'package:locator/app/view/components/icon_button.dart';
 import 'package:locator/app/view/userPage/current_location_view.dart';
@@ -19,7 +19,7 @@ class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    BlocProvider.of<GetUpdatesCubit>(context).getUserUpdates(id: user.id);
+    BlocProvider.of<UpdatesCubit>(context).getUserUpdates(id: user.id);
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
 

@@ -1,23 +1,23 @@
 
-part of 'get_users_cubit.dart';
+part of 'users_cubit.dart';
 
 
-abstract class GetUsersState extends Equatable{
-  const GetUsersState();
+abstract class UsersState extends Equatable{
+  const UsersState();
 }
 
 
-class InitialUsersState extends GetUsersState {
+class InitialUsersState extends UsersState {
   @override
   List<Object?> get props => [];
 }
 
-class LoadingUsersState extends GetUsersState {
+class LoadingUsersState extends UsersState {
   @override
   List<Object?> get props => [];
 }
 
-class LoadedUsersState extends GetUsersState with EquatableMixin {
+class LoadedUsersState extends UsersState with EquatableMixin {
   LoadedUsersState({required this.data});
   final List<User> data;
 
@@ -25,7 +25,7 @@ class LoadedUsersState extends GetUsersState with EquatableMixin {
   List<Object?> get props => [data];
 }
 
-class ErrorGettingUsersState extends GetUsersState {
+class ErrorGettingUsersState extends UsersState {
   const ErrorGettingUsersState({required this.error});
   final String error;
   @override

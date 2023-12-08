@@ -7,10 +7,10 @@ import 'package:locator/app/domain/models/user/user.dart';
 import 'package:equatable/equatable.dart';
 
 
-part 'get_users_state.dart';
+part 'users_state.dart';
 
-class GetUsersCubit extends Cubit<GetUsersState> {
-  GetUsersCubit({required this.repository}) : super(InitialUsersState());
+class UsersCubit extends Cubit<UsersState> {
+  UsersCubit({required this.repository}) : super(InitialUsersState());
   final Repository repository;
 
   Future<void> getUsers() async {
