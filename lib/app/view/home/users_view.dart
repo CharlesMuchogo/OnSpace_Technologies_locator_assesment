@@ -5,6 +5,7 @@ import 'package:locator/app/domain/models/user/user.dart';
 import 'package:locator/app/utils/locator_custom_cliper.dart';
 import 'package:locator/app/view/components/add_icon.dart';
 import 'package:locator/app/view/home/user_card.dart';
+
 class UsersView extends StatefulWidget {
   UsersView({required this.users, super.key});
 

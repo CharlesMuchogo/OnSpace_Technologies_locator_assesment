@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:locator/app/domain/cubits/users/users_cubit.dart';
 import 'package:locator/app/domain/models/user/user.dart';
-import 'package:locator/app/utils/filter_types.dart';
 import 'package:locator/app/view/components/bottom_nav_item.dart';
 import 'package:locator/app/view/components/icon_button.dart';
 import 'package:locator/app/view/home/google_map_page.dart';
@@ -22,6 +21,8 @@ class _HomePageState extends State<HomePage> {
   Set<Marker> markers = {};
   int pageIndex = 0;
 
+  String searchParameter = '';
+  bool showSearchBar = false;
 
   final pages = [
     const HomePage(),
@@ -84,8 +85,24 @@ class _HomePageState extends State<HomePage> {
                 onDragEnd: (value) {},
               );
             }).toSet();
-          }
 
+            if (searchParameter != '') {
+              users = users
+                  .where((element) =>
+                      element.name
+                          .toLowerCase()
+                          .contains(searchParameter.toLowerCase()) ||
+                      element.location.placeName
+                          .toLowerCase()
+                          .contains(searchParameter.toLowerCase()) ||
+                      element.type
+                          .toLowerCase()
+                          .contains(searchParameter.toLowerCase()))
+                  .toList();
+            } else {
+              users = users;
+            }
+          }
 
           return SizedBox(
             height: size.height,
@@ -93,28 +110,34 @@ class _HomePageState extends State<HomePage> {
             child: Stack(
               children: [
                 MapPage(markers: markers),
-                const Padding(
-                  padding: EdgeInsets.only(top: 30),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CircleAvatarWithIcon(
-                        paddingValues: 10,
-                        icon: Icons.search,
-                        backgroundColor: Colors.white,
-                        iconColor: Colors.black,
-                        radius: 30,
-                      ),
-                      CircleAvatarWithIcon(
-                        paddingValues: 10,
-                        icon: Icons.settings,
-                        backgroundColor: Colors.white,
-                        iconColor: Colors.black,
-                        radius: 30,
-                      ),
-                    ],
-                  ),
-                ),
+                Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: showSearchBar
+                        ? appBarSearch()
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CircleAvatarWithIcon(
+                                paddingValues: 10,
+                                icon: Icons.search,
+                                backgroundColor: Colors.white,
+                                iconColor: Colors.black,
+                                onPressed: () {
+                                  setState(() {
+                                    showSearchBar = true;
+                                  });
+                                },
+                                radius: 30,
+                              ),
+                              const CircleAvatarWithIcon(
+                                paddingValues: 10,
+                                icon: Icons.settings,
+                                backgroundColor: Colors.white,
+                                iconColor: Colors.black,
+                                radius: 30,
+                              ),
+                            ],
+                          )),
                 Positioned(
                   bottom: 0,
                   left: 8,
@@ -133,6 +156,62 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
+    );
+  }
+
+  Widget appBarSearch() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          height: 40,
+          padding: const EdgeInsets.only(left: 10),
+          width: MediaQuery.of(context).size.width * 0.8,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: TextFormField(
+              keyboardType: TextInputType.text,
+
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                suffixIcon: const Icon(Icons.search),
+                hintText: '  Search user',
+                labelStyle: const TextStyle(
+                  color: Colors.grey,
+                ),
+                hintStyle: TextStyle(color: Colors.grey.shade600),
+              ),
+              style: const TextStyle(color: Colors.black),
+              //controller: password,
+
+              onChanged: (value) {
+                setState(() {
+                  searchParameter = value;
+                });
+              },
+              onSaved: (val) {
+                searchParameter = val!;
+              },
+            ),
+          ),
+        ),
+        CircleAvatarWithIcon(
+          paddingValues: 5,
+          icon: Icons.close,
+          backgroundColor: Colors.white,
+          iconColor: Colors.black,
+          onPressed: () {
+            setState(() {
+              showSearchBar = false;
+            });
+          },
+          radius: 30,
+        ),
+      ],
     );
   }
 
