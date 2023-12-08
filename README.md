@@ -13,7 +13,12 @@ A Very Good Project created by Very Good CLI.
 
 ## Screenshots
 I added some screenshots and video in the assets folder, in the root directory of the project and a GIF to show end to end test on the app.
-<img src="assets/video.mp4" alt="demo video" width="250" />
+
+
+https://github.com/CharlesMuchogo/OnSpace_Technologies_locator_assesment/assets/58371052/1407f127-9dc9-4aeb-a2c2-b10a72a730b6
+
+
+
 <img src="assets/homepage.png" alt="home page" width="250" />
 <img src="assets/user_page.png" alt="user page" width="250" />
 
